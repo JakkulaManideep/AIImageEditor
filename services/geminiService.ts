@@ -1,14 +1,15 @@
 import { GoogleGenAI, Modality, Part, GenerateContentResponse } from "@google/genai";
 import { UploadedImage, GeneratedResult } from '../types';
 
-// FIX: Per coding guidelines, initialize GoogleGenAI with `process.env.API_KEY` directly.
-// This also resolves the TypeScript error related to `import.meta.env`.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
 export const mergeImagesWithAI = async (
   images: UploadedImage[],
   backgroundPrompt: string
 ): Promise<GeneratedResult> => {
+  if (!process.env.API_KEY) {
+    throw new Error("API key is missing. Please set the API_KEY environment variable.");
+  }
 
   try {
     const fullPrompt = `Merge the subjects from the provided images into a single, cohesive new image. The new background for this scene should be: "${backgroundPrompt}". Please ensure the lighting and shadows on the subjects match the new background for a realistic and natural look.`;
