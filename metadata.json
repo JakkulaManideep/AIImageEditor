@@ -1,0 +1,5 @@
+{
+  "name": "AI Image Fusion",
+  "description": "Upload multiple images and describe a background scene. The AI will merge your images into a single, cohesive picture with the desired background.",
+  "requestFramePermissions": []
+}
